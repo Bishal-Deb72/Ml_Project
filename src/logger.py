@@ -2,13 +2,20 @@ import logging
 import os
 from datetime import datetime
 
-# Create a logs directory
-LOG_DIR = os.path.join(os.getcwd(), "logs")
-os.makedirs(LOG_DIR, exist_ok=True)
+# Generate a timestamp
+timestamp = datetime.now().strftime('%m_%d_%Y_%H_%M_%S')
 
-# Create a unique log file name
-LOG_FILE = f"{datetime.now().strftime('%m_%d_%Y_%H_%M_%S')}.log"
-LOG_FILE_PATH = os.path.join(LOG_DIR, LOG_FILE)
+# Create logs directory
+LOGS_BASE_DIR = os.path.join(os.getcwd(), "logs")
+os.makedirs(LOGS_BASE_DIR, exist_ok=True)
+
+# Create a subfolder with the timestamp
+LOG_FOLDER = os.path.join(LOGS_BASE_DIR, timestamp)
+os.makedirs(LOG_FOLDER, exist_ok=True)
+
+# Create the log file inside that folder (with same name as folder)
+LOG_FILE = f"{timestamp}.log"
+LOG_FILE_PATH = os.path.join(LOG_FOLDER, LOG_FILE)
 
 # Configure logging
 logging.basicConfig(
@@ -17,6 +24,6 @@ logging.basicConfig(
     level=logging.INFO,
 )
 
-# # Test log
-# if __name__ == "__main__":
-#     logging.info("Logging has been set up.")
+# Test log (you can comment this out later)
+if __name__ == "__main__":
+    logging.info("Logging has been set up in timestamped folder.")
